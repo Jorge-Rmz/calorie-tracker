@@ -3,19 +3,17 @@ import { ChangeEvent, Dispatch, FormEvent, useState, useEffect } from "react";
 import { v4 as uuidV4 } from 'uuid';
 import { Activity, Category } from "../interface";
 import { ActivityAction, ActivityState } from "../reducers/activityReducer";
+import { useActivity } from "../hooks/useActivity";
 
-interface FormProps {
-    dispatch: Dispatch<ActivityAction>;
-    state: ActivityState;
-}
+
 const initialState: Activity = {
     id: uuidV4(),
     category: 1,
     name: '',
     calories: 0
 }
-function Form({ dispatch, state }: FormProps) {
-
+function Form() {
+    const {state,dispatch} = useActivity();
     useEffect(() => {
         if (state.activeId !== '') {
             const selectActivity = state.activities.filter(stateActivity => stateActivity.id === state.activeId)[0];
